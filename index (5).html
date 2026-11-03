@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shreya Pandey Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column. A large name over a live voice waveform, then ruled rows for projects, experience and skills. */
+:root {
+  --bg: #0d1217;
+  --surface: #151c23;
+  --fg: #e8eef3;
+  --muted: #9aa8b5;
+  --line: #26313b;
+  --accent: #56c3df;
+  --accent-ink: #06222b;
+  color-scheme: dark;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 0 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 920px; margin-inline: auto; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* top bar */
+.bar { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; padding-block: 22px; }
+.mark { font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em; }
+.mark b { color: var(--accent); font-weight: 500; }
+.bar nav { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; }
+.bar nav a { text-decoration: none; color: var(--muted); }
+.bar nav a:hover { color: var(--fg); }
+
+/* hero */
+.hero { padding-top: clamp(36px, 8vw, 88px); }
+.eyebrow { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(46px, 11vw, 112px);
+  line-height: .94;
+  letter-spacing: -.035em;
+  margin: 0;
+  text-wrap: balance;
+}
+.lede { max-width: 56ch; font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); margin: 26px 0 0; }
+.lede strong { color: var(--fg); font-weight: 500; }
+canvas#wave { display: block; width: 100%; height: 120px; margin-top: 34px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 14px/1 var(--font-body);
+  padding: 13px 18px; border-radius: 6px; text-decoration: none; cursor: pointer;
+  border: 1px solid var(--line); background: transparent; color: var(--fg);
+}
+.btn:hover { border-color: var(--fg); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); }
+.email-line { font-family: var(--font-mono); font-size: 13px; color: var(--muted); user-select: all; word-break: break-all; }
+
+/* sections */
+section { padding-top: clamp(56px, 9vw, 96px); }
+.sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--fg); padding-bottom: 12px; margin-bottom: 4px; }
+h2 { font-family: var(--font-display); font-weight: 650; font-size: clamp(26px, 4vw, 34px); letter-spacing: -.02em; margin: 0; }
+.sec-head span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: right; }
+
+/* facts */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0; border-bottom: 1px solid var(--line); }
+.fact { padding: 22px 20px 22px 0; min-width: 0; }
+.fact b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 38px; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.fact span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); }
+
+/* rows */
+.row { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 32px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+.row .meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); letter-spacing: .02em; padding-top: 6px; }
+.row h3 { font-family: var(--font-display); font-weight: 650; font-size: 24px; letter-spacing: -.015em; margin: 0 0 8px; line-height: 1.2; }
+.row p { margin: 0; max-width: 62ch; color: var(--muted); }
+.row p + p { margin-top: 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding: 0; list-style: none; }
+.tags li { font-family: var(--font-mono); font-size: 12px; padding: 4px 9px; border-radius: 4px; background: var(--surface); color: var(--fg); }
+.status { color: var(--accent); }
+.code-link { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 13px; color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+.code-link:hover { color: var(--fg); }
+.feature h3 .vv { color: var(--accent); }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px 32px; padding-top: 28px; }
+.skills h3 { font-family: var(--font-mono); font-weight: 500; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+.skills ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.skills li { padding: 2px 0; }
+
+/* certs */
+.cert-title { font-family: var(--font-mono); font-weight: 500; font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 40px 0 0; }
+.certs { columns: 2 280px; column-gap: 40px; padding: 24px 0 0; margin: 0; list-style: none; }
+.certs li { break-inside: avoid; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.certs li small { display: block; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); letter-spacing: .02em; }
+
+/* contact */
+.contact { display: grid; gap: 18px; padding-top: 28px; }
+.contact p { margin: 0; max-width: 52ch; font-size: 19px; }
+footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 640px) {
+  .row { grid-template-columns: minmax(0, 1fr); padding: 24px 0; }
+  .row .meta { padding-top: 0; }
+  .fact { padding-right: 12px; }
+  canvas#wave { height: 96px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <div class="mark">shreya<b>.</b>pandey</div>
+    <nav aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <p class="eyebrow">B.Tech CSE, final year &middot; Class of 2027</p>
+      <h1>Shreya Pandey</h1>
+      <p class="lede">I am a <strong>Python developer with experience in AI, computer vision and cloud.</strong> I build things that solve real problems: a voice system that takes classroom attendance, an alert app for personal safety, and a model that classifies rural roads. I am looking for AI/ML and software roles starting 2027.</p>
+      <canvas id="wave" aria-hidden="true"></canvas>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn" href="https://github.com/Jsejejdh" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/shreya-pandey-497b99294/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://leetcode.com/u/shreya8_pandey/" target="_blank" rel="noopener">LeetCode</a>
+      </div>
+    </div>
+
+    <section aria-label="At a glance">
+      <div class="facts">
+        <div class="fact"><b>9.60</b><span>CGPA, Sarala Birla University</span></div>
+        <div class="fact"><b>260+</b><span>LeetCode problems solved</span></div>
+        <div class="fact"><b>3</b><span>Internships: AI &amp; Cloud, Cybersecurity, Python</span></div>
+        <div class="fact"><b>2&times;</b><span>College-level selection, Smart India Hackathon</span></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec-head"><h2>Projects</h2><span>6 projects, 1 in progress</span></div>
+
+      <article class="row feature">
+        <div class="meta">Python &middot; Voice AI<br><span class="status">Actively developing</span></div>
+        <div>
+          <h3><span class="vv">Vaani Verify</span> &mdash; Voice Attendance System</h3>
+          <p>A real-time attendance system for a classroom of 53 students. Each student records voice samples, the system builds a voice database from them, and a live microphone loop recognises who is speaking and marks them present in a CSV.</p>
+          <p>Next stage, requested by my faculty: compare the day's attendance with the class roster and email the students who were absent.</p>
+          <ul class="tags"><li>Python</li><li>Resemblyzer</li><li>Speaker embeddings</li><li>CSV</li><li>Live audio</li></ul>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Python<br>Safety</div>
+        <div>
+          <h3>Women Safety Alert System</h3>
+          <p>When the user is in danger, the app sends her current location, a captured image and an email alert to her close contacts, so help can reach her quickly.</p>
+          <ul class="tags"><li>Python</li><li>Geolocation</li><li>Image capture</li><li>Email alerts</li></ul>
+          <a class="code-link" href="https://github.com/Jsejejdh/women_safety_alert_system" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Python<br>Computer vision</div>
+        <div>
+          <h3>Dino Game Jump Controller</h3>
+          <p>Play the Chrome Dino game by jumping in real life. The webcam tracks your body with pose detection, and when your shoulder moves up past a set threshold, the program presses the spacebar so the Dino jumps. A short cooldown stops one movement from triggering repeated jumps.</p>
+          <p>Runs on a small 320x240 frame with the fastest pose model, so it stays smooth, and shows a live webcam preview.</p>
+          <ul class="tags"><li>Python</li><li>OpenCV</li><li>MediaPipe Pose</li><li>PyAutoGUI</li></ul>
+          <a class="code-link" href="https://github.com/Jsejejdh/dino_exercise_game" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">IBM Cloud<br>Machine learning</div>
+        <div>
+          <h3>PMGSY Road Classifier</h3>
+          <p>A model that classifies roads under the PM Gram Sadak Yojana. Trained on tabular data from the AI Kosh platform using IBM Watson, and reached 90% accuracy.</p>
+          <ul class="tags"><li>IBM Watson</li><li>IBM Cloud</li><li>AI Kosh data</li><li>90% accuracy</li></ul>
+          <a class="code-link" href="https://github.com/Jsejejdh/Edunet-foundation-internship-final-project-PMGSY-Classifier" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Python<br>Pinnacle Labs</div>
+        <div>
+          <h3>Weather Forecast App</h3>
+          <p>A Python app that shows real-time weather, detects the user's location on its own, and presents the forecast in a simple interface. Built during my Pinnacle Labs internship.</p>
+          <ul class="tags"><li>Python</li><li>Weather API</li><li>Location detection</li><li>UI</li></ul>
+          <a class="code-link" href="https://github.com/Jsejejdh/weather-app" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">C++<br>Coursework</div>
+        <div>
+          <h3>Student Management System</h3>
+          <p>A console application in C++ that keeps student records between runs using file handling. A menu lets you add, update, delete and display student information.</p>
+          <ul class="tags"><li>C++</li><li>File handling</li><li>Menu-driven</li></ul>
+          <a class="code-link" href="https://github.com/Jsejejdh/student_management_systems" target="_blank" rel="noopener">View code on GitHub &rarr;</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="experience">
+      <div class="sec-head"><h2>Experience &amp; achievements</h2><span>Academics, internships, hackathons</span></div>
+
+      <article class="row">
+        <div class="meta">Sarala Birla University<br>B.Tech CSE</div>
+        <div>
+          <h3>Academic Topper, 2nd and 3rd Year</h3>
+          <p>Secured the top rank in B.Tech Computer Science in both second year and third year, with a CGPA of 9.60.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Edunet Foundation<br>4 weeks &middot; Virtual</div>
+        <div>
+          <h3>AI and Cloud Computing Intern</h3>
+          <p>Internship run with AICTE. Worked on the IBM platform, earned IBM certificates and built hands-on skills in IBM Cloud and RAG (Retrieval-Augmented Generation).</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Cisco<br>1 month &middot; Virtual</div>
+        <div>
+          <h3>Cybersecurity Virtual Intern</h3>
+          <p>Studied cybersecurity fundamentals and networking, and practised with Cisco Packet Tracer.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Pinnacle Labs</div>
+        <div>
+          <h3>Python Intern</h3>
+          <p>Built the weather forecast app listed above, from data fetching to the user interface.</p>
+        </div>
+      </article>
+
+      <article class="row">
+        <div class="meta">Hackathons</div>
+        <div>
+          <h3>NIT Jamshedpur and Smart India Hackathon</h3>
+          <p>Took part in a hackathon at NIT Jamshedpur. Selected at college level for Smart India Hackathon twice, at the idea and presentation stage.</p>
+        </div>
+      </article>
+    </section>
+
+    <section id="skills">
+      <div class="sec-head"><h2>Skills</h2><span>What I work with</span></div>
+      <div class="skills">
+        <div>
+          <h3>Languages</h3>
+          <ul><li>Python</li><li>C++</li></ul>
+        </div>
+        <div>
+          <h3>Data science &amp; ML libraries</h3>
+          <ul><li>NumPy</li><li>Pandas</li><li>Scikit-learn</li><li>TensorFlow</li><li>PyTorch</li></ul>
+        </div>
+        <div>
+          <h3>AI &amp; machine learning</h3>
+          <ul><li>Artificial intelligence</li><li>Machine learning</li><li>Computer vision</li><li>Speaker recognition</li><li>RAG</li></ul>
+        </div>
+        <div>
+          <h3>Libraries &amp; tools</h3>
+          <ul><li>OpenCV</li><li>MediaPipe</li><li>Resemblyzer</li><li>PyAutoGUI</li><li>Git and GitHub</li></ul>
+        </div>
+        <div>
+          <h3>Cloud &amp; APIs</h3>
+          <ul><li>IBM Cloud</li><li>IBM Watson</li><li>Working with web APIs</li><li>Real-time data handling</li></ul>
+        </div>
+        <div>
+          <h3>Web development</h3>
+          <ul><li>Django</li><li>FastAPI</li><li>Front-end development</li></ul>
+        </div>
+        <div>
+          <h3>Core CS fundamentals</h3>
+          <ul><li>Data structures &amp; algorithms</li><li>Object-oriented programming</li><li>DBMS</li><li>Operating systems</li><li>Computer networks</li><li>File handling</li></ul>
+        </div>
+        <div>
+          <h3>Security &amp; networks</h3>
+          <ul><li>Cybersecurity essentials</li><li>Networking (CCNA)</li><li>Cisco Packet Tracer</li></ul>
+        </div>
+      </div>
+
+      <h3 class="cert-title">Certifications from IBM, Cisco and IIT Guwahati</h3>
+      <ul class="certs">
+        <li>Cybersecurity Essentials<small>Cisco</small></li>
+        <li>Introduction to Cybersecurity<small>Cisco</small></li>
+        <li>Exploring Networking with Cisco Packet Tracer<small>Cisco</small></li>
+        <li>Getting Started with Cisco Packet Tracer<small>Cisco</small></li>
+        <li>IBM Cloud and RAG certificates<small>IBM, via Edunet Foundation</small></li>
+        <li>Python (Basic)<small>HackerRank</small></li>
+        <li>Artificial Intelligence (NPTEL), Silver medal<small>IIT Guwahati</small></li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <div class="sec-head"><h2>Contact</h2><span>Open to opportunities</span></div>
+      <div class="contact">
+        <div class="cta">
+          <button class="btn primary" id="copy-email" type="button">Copy email</button>
+          <span class="email-line" id="email-text">shreyapandey6543210@gmail.com</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="https://github.com/Jsejejdh" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/shreya-pandey-497b99294/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://leetcode.com/u/shreya8_pandey/" target="_blank" rel="noopener">LeetCode</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>Shreya Pandey</span><span>B.Tech CSE &middot; Sarala Birla University &middot; 2023&ndash;2027</span></footer>
+</div>
+
+<script>
+(function () {
+  var cv = document.getElementById('wave');
+  var ctx = cv.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var w = 0, h = 0, dpr = 1, t0 = performance.now();
+
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = cv.clientWidth; h = cv.clientHeight;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function draw(now) {
+    var s = getComputedStyle(document.documentElement);
+    var accent = s.getPropertyValue('--accent').trim() || '#0a6c8c';
+    var line = s.getPropertyValue('--line').trim() || '#cfd7df';
+    var t = reduce ? 1.4 : (now - t0) / 1000;
+    ctx.clearRect(0, 0, w, h);
+    var mid = h / 2;
+
+    ctx.strokeStyle = line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, mid + .5); ctx.lineTo(w, mid + .5); ctx.stroke();
+
+    var bar = 4, gap = 4, n = Math.floor(w / (bar + gap));
+    ctx.fillStyle = accent;
+    for (var i = 0; i < n; i++) {
+      var x = i * (bar + gap);
+      var p = i / n;
+      var env = Math.sin(p * Math.PI);
+      var a = Math.sin(p * 17 + t * 1.6) * 0.5 + Math.sin(p * 41 - t * 2.3) * 0.3 + Math.sin(p * 7 + t * 0.7) * 0.2;
+      var amp = Math.max(0.04, Math.abs(a)) * env;
+      var bh = Math.max(2, amp * (h - 8));
+      ctx.globalAlpha = 0.35 + 0.65 * env;
+      ctx.fillRect(x, mid - bh / 2, bar, bh);
+    }
+    ctx.globalAlpha = 1;
+    if (!reduce) requestAnimationFrame(draw);
+  }
+
+  size();
+  window.addEventListener('resize', function () { size(); if (reduce) draw(performance.now()); });
+  requestAnimationFrame(draw);
+
+  var btn = document.getElementById('copy-email');
+  var txt = document.getElementById('email-text');
+  btn.addEventListener('click', function () {
+    var label = 'Copy email';
+    function done(ok) {
+      btn.textContent = ok ? 'Copied' : 'Select and copy below';
+      setTimeout(function () { btn.textContent = label; }, 1800);
+    }
+    function fallback() {
+      try {
+        var r = document.createRange(); r.selectNodeContents(txt);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      } catch (e) {}
+      done(false);
+    }
+    try {
+      navigator.clipboard.writeText(txt.textContent.trim()).then(function () { done(true); }, fallback);
+    } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body>
+</html>
